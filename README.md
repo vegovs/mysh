@@ -27,18 +27,19 @@ make clean
 ```
 ## Supported commands: 
 * Builtins: 
-	* 'quit': Quits mysh
-	* 'type': Returns command type
-	* 'h': Print command/execution history.
-	* 'h i': Run command 'i'
-	* 'h -d i': Delete history input 'i'
-	* 'jobs': List all running jobs
-	* 'kill pid': Kill job
-* Run programs in background using '&'.
+	* `quit`: Quits mysh
+	* `type`: Returns command type
+	* `h`: Print command/execution history.
+	* `h i`: Run command `i`
+	* `h -d i`: Delete history input `i`
+	* `jobs`: List all running jobs
+	* `kill pid`: Kill job
+* Run programs in background using `&`.
 	* Applications requiring TERM and DISPLAY variables set is **NOT** supported.
-* Exit using 'Ctrl-D'
+* Signal handling and exiting using 'Ctrl-d', 'Ctrl-z' etc.
 
 ## Examples: 
+
 ### DEBUG printing.
 ```bash
 vegarbov@mysh 0> pwd
@@ -46,44 +47,66 @@ DEBUG: Read: pwd
 ```
 
 ```bash
-vegarbov@mysh 0> hello darknes my old friend
-DEBUG: Read: hello darknes my old friend
-...
-OTHER DEBUG INFO
-...
+DEBUG: Read: hello github my old friend
+
+DEBUG - BITMAP
+
+00001111000000000000000000000000
+00000000000000000000000000000000
+
+DEBUG - DATABLOCKS
+
+##hello gi##thub my ##old frie##nd      ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+##        ##        ##        ##        ##
+
 DEBUG: Number of tokens saved to saveptr: 5
 DEBUG: [0]: hello
-DEBUG: [1]: darknes
+DEBUG: [1]: github
 DEBUG: [2]: my
 DEBUG: [3]: old
 DEBUG: [4]: friend
+mysh: hello: command not found
 ```
 
-### CTRL-D: 
+### Ctrl-d: 
 ```bash
 vegarbov@mysh 1>
 CTRL-D caught, exiting mysh..
 ```
-### Executing commands
+### Commands:
 ```bash
 vegarbov@mysh 0> xyz
 mysh: xyz: command not found
 ```
 
-### Background flag
+### `&`:
 ```bash
 vegarbov@mysh 1> vim &
 [1] 55929
 vegarbov@mysh 2>
 ```
 
-### `type`
+### `type`:
 ```bash
 vegarbov@mysh 2> type h
 h is a shell builtin
 ```
 
-### `h`
+### `h`:
 ```bash
 vegarbov@mysh 4> h
 History list of the last 5 commands:
@@ -95,11 +118,11 @@ History list of the last 5 commands:
 ```
 
 ## Architecture
-| Fil      | Beskrivelse                                                                             |
-|----------|-----------------------------------------------------------------------------------------|
-| mysh.c   | Main shell functions|
-| mysh.h   | Header file for the entire project|
-| bi.c     | All built in functions|
-| bm.c     | Bitmap functions|
-| mdll.c   | Metadata linked list functions for history handling|
-| makefile | make|
+| File     | Description                                         |
+|----------|-----------------------------------------------------|
+| mysh.c   | Main shell functions                                |
+| mysh.h   | Header file for the entire project                  |
+| bi.c     | Built in functions                                  |
+| bm.c     | Bitmap functions                                    |
+| mdll.c   | Metadata linked list functions for history handling |
+| makefile | make                                                |
